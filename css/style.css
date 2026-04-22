@@ -22,7 +22,7 @@
   --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
   --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
   --transition: 0.3s ease;
-  --header-height: 80px;
+  --header-height: 130px;
 }
 
 /* ---- Reset & Base ---- */
@@ -220,7 +220,7 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 .logo-img {
-  height: 58px;
+  height: 116px;
   width: auto;
   object-fit: contain;
   display: block;
