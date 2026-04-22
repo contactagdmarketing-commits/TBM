@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – Trans Bio Médic</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/pages.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header scrolled" id="header">
+    <nav class="navbar">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-droplet"></i></div>
+        <div class="logo-text">
+          <span class="logo-main">Trans Bio Médic</span>
+          <span class="logo-sub">Transport Biologique</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">Accueil</a></li>
+        <li><a href="notre-societe.html" class="nav-link">Notre société</a></li>
+        <li><a href="solutions.html" class="nav-link">Solutions</a></li>
+        <li><a href="equipements.html" class="nav-link">Équipements</a></li>
+        <li><a href="qualite.html" class="nav-link">Qualité</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        <li><a href="recrutement.html" class="nav-link nav-link--cta">Recrutement</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Accueil</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Contact</span>
+      </div>
+      <h1>Nous Contacter</h1>
+      <p>Notre équipe est disponible 24h/24 et 7j/7 pour répondre à toutes vos demandes.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Infos contact -->
+        <div class="contact-info">
+          <div class="section-tag">Coordonnées</div>
+          <h2 class="section-title">Parlons de<br />vos besoins</h2>
+          <p>Que vous souhaitiez obtenir un devis, vous renseigner sur nos services ou établir un partenariat, notre équipe est à votre écoute.</p>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <strong>Téléphone</strong>
+                <a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a>
+                <span>Disponible 24h/24 – 7j/7</span>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:contact@transbiomedic.fr">contact@transbiomedic.fr</a>
+                <span>Réponse sous 24h ouvrées</span>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <strong>Adresse</strong>
+                <span>France</span>
+                <span>Couverture nationale</span>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <strong>Disponibilité</strong>
+                <span>24h/24 – 7j/7</span>
+                <span>Jours fériés inclus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="contact-form-wrapper">
+          <form id="contactForm" class="contact-form" novalidate>
+            <h3>Envoyer un message</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" required />
+            </div>
+
+            <div class="form-group">
+              <label for="telephone">Téléphone</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="+33 6 XX XX XX XX" />
+            </div>
+
+            <div class="form-group">
+              <label for="etablissement">Établissement / Société</label>
+              <input type="text" id="etablissement" name="etablissement" placeholder="CHU, laboratoire, EFS..." />
+            </div>
+
+            <div class="form-group">
+              <label for="sujet">Sujet *</label>
+              <select id="sujet" name="sujet" required>
+                <option value="" disabled selected>Sélectionnez un sujet</option>
+                <option value="devis">Demande de devis</option>
+                <option value="information">Demande d'information</option>
+                <option value="partenariat">Partenariat</option>
+                <option value="urgence">Transport urgent</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="5" placeholder="Décrivez votre besoin..." required></textarea>
+            </div>
+
+            <div class="form-group form-check">
+              <input type="checkbox" id="rgpd" name="rgpd" required />
+              <label for="rgpd">J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="#">politique de confidentialité</a>.</label>
+            </div>
+
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+              Envoyer le message <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-droplet"></i></div>
+            <div class="logo-text">
+              <span class="logo-main">Trans Bio Médic</span>
+              <span class="logo-sub">Transport Biologique</span>
+            </div>
+          </a>
+          <p>Spécialiste du transport de produits biologiques et sanguins, disponible 24h/24 et 7j/7.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="notre-societe.html">Notre société</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="equipements.html">Équipements</a></li>
+            <li><a href="qualite.html">Qualité</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Informations</h4>
+          <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="recrutement.html">Recrutement</a></li>
+            <li><a href="#">Mentions légales</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-phone"></i><a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a></li>
+            <li><i class="fa-solid fa-envelope"></i><a href="mailto:contact@transbiomedic.fr">contact@transbiomedic.fr</a></li>
+            <li><i class="fa-solid fa-clock"></i><span>24h/24 – 7j/7</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Trans Bio Médic – Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
