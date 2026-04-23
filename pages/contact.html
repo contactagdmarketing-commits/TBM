@@ -95,6 +95,24 @@
           <form id="contactForm" class="contact-form" novalidate>
             <h3>Envoyer un message</h3>
 
+            <!-- Message de succès -->
+            <div id="formSuccess" class="form-success" style="display:none;">
+              <i class="fa-solid fa-circle-check"></i>
+              <div>
+                <strong>Message envoyé avec succès !</strong>
+                <p>Nous vous répondrons dans les meilleurs délais.</p>
+              </div>
+            </div>
+
+            <!-- Message d'erreur -->
+            <div id="formError" class="form-error" style="display:none;">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <div>
+                <strong>Une erreur est survenue.</strong>
+                <p>Veuillez réessayer ou nous contacter par téléphone.</p>
+              </div>
+            </div>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="prenom">Prénom *</label>
@@ -125,11 +143,11 @@
               <label for="sujet">Sujet *</label>
               <select id="sujet" name="sujet" required>
                 <option value="" disabled selected>Sélectionnez un sujet</option>
-                <option value="devis">Demande de devis</option>
-                <option value="information">Demande d'information</option>
-                <option value="partenariat">Partenariat</option>
-                <option value="urgence">Transport urgent</option>
-                <option value="autre">Autre</option>
+                <option value="Demande de devis">Demande de devis</option>
+                <option value="Demande d'information">Demande d'information</option>
+                <option value="Partenariat">Partenariat</option>
+                <option value="Transport urgent">Transport urgent</option>
+                <option value="Autre">Autre</option>
               </select>
             </div>
 
@@ -143,7 +161,7 @@
               <label for="rgpd">J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="#">politique de confidentialité</a>.</label>
             </div>
 
-            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+            <button type="submit" id="submitBtn" class="btn btn--primary" style="width:100%; justify-content:center;">
               Envoyer le message <i class="fa-solid fa-paper-plane"></i>
             </button>
           </form>
@@ -200,6 +218,57 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="../js/main.js"></script>
+  <script>
+    emailjs.init('f8b6e8mQnbw6dXCb2');
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = this;
+      const btn = document.getElementById('submitBtn');
+      const successMsg = document.getElementById('formSuccess');
+      const errorMsg = document.getElementById('formError');
+      const rgpd = document.getElementById('rgpd');
+
+      // Validation RGPD
+      if (!rgpd.checked) {
+        rgpd.style.outline = '2px solid #c0392b';
+        return;
+      }
+
+      // Bouton en chargement
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      const templateParams = {
+        prenom: document.getElementById('prenom').value,
+        nom: document.getElementById('nom').value,
+        email: document.getElementById('email').value,
+        telephone: document.getElementById('telephone').value || 'Non renseigné',
+        etablissement: document.getElementById('etablissement').value || 'Non renseigné',
+        sujet: document.getElementById('sujet').value,
+        message: document.getElementById('message').value,
+        title: document.getElementById('sujet').value
+      };
+
+      emailjs.send('service_p7b71hk', 'template_qcbpgvo', templateParams)
+        .then(() => {
+          successMsg.style.display = 'flex';
+          form.reset();
+          btn.innerHTML = 'Envoyer le message <i class="fa-solid fa-paper-plane"></i>';
+          btn.disabled = false;
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        })
+        .catch(() => {
+          errorMsg.style.display = 'flex';
+          btn.innerHTML = 'Envoyer le message <i class="fa-solid fa-paper-plane"></i>';
+          btn.disabled = false;
+        });
+    });
+  </script>
 </body>
 </html>

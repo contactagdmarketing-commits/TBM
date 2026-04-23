@@ -359,6 +359,30 @@
 }
 .contact-card a:hover { color: var(--color-accent); }
 
+/* ---- Messages succès / erreur ---- */
+.form-success, .form-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+.form-success {
+  background: rgba(39,174,96,0.10);
+  border: 1px solid rgba(39,174,96,0.30);
+  color: #1e8449;
+}
+.form-error {
+  background: rgba(192,57,43,0.08);
+  border: 1px solid rgba(192,57,43,0.25);
+  color: var(--color-accent);
+}
+.form-success i, .form-error i { font-size: 1.4rem; margin-top: 2px; flex-shrink: 0; }
+.form-success strong, .form-error strong { display: block; font-weight: 700; margin-bottom: 4px; }
+.form-success p, .form-error p { margin: 0; opacity: 0.85; }
+
 /* ---- Contact Form ---- */
 .contact-form-wrapper {
   background: white;
