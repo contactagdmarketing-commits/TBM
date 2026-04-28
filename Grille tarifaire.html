@@ -979,6 +979,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     /* ── Hamburger ── */
     const hamburger = document.getElementById('hamburger');
@@ -989,6 +990,10 @@
     });
 
     /* ── Tunnel ── */
+    if (window.emailjs && typeof window.emailjs.init === 'function') {
+      emailjs.init('f8b6e8mQnbw6dXCb2');
+    }
+
     const TBM = {
       type: null, history: [], data: {},
       flows: {
@@ -1151,12 +1156,85 @@
         alert('Merci de remplir tous les champs avant d\'envoyer.');
         return;
       }
-      /* → Branchez ici votre backend / Formspree / EmailJS */
-      console.log('Demande TBM', { ...TBM.data, nom, etab, tel, email });
-      document.querySelectorAll('.tunnel-step').forEach(s => s.classList.remove('active'));
-      document.getElementById('ts-success').classList.add('active');
-      document.getElementById('tunnel-progress').style.width = '100%';
-      document.getElementById('tunnel-sub').textContent = 'Demande envoyée';
+
+      if (!window.emailjs || typeof window.emailjs.send !== 'function') {
+        alert('Envoi email indisponible. Merci de réessayer dans quelques instants ou de nous appeler.');
+        return;
+      }
+
+      const btn = document.querySelector('#ts-4 .tunnel-submit');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
+      }
+
+      const parts = nom.split(/\s+/).filter(Boolean);
+      const prenom = parts[0] || nom;
+      const nomDeFamille = parts.length > 1 ? parts.slice(1).join(' ') : '';
+
+      const recapLabels = {
+        type:'Type de prestation',
+        frequence:'Fréquence',
+        horaire:'Plage horaire',
+        duree:'Durée astreinte',
+        produit:'Marchandises / produits',
+        distance:'Distance',
+        vehicules:'Nb de véhicules'
+      };
+
+      const recapLines = [];
+      for (const [k, v] of Object.entries(TBM.data)) {
+        if (!recapLabels[k]) continue;
+        const valLabel = Array.isArray(v.label) ? v.label.join(', ') : v.label;
+        recapLines.push('- ' + recapLabels[k] + ' : ' + valLabel);
+      }
+
+      const message = [
+        'Demande depuis le tunnel tarifaire (Grille tarifaire).',
+        '',
+        'Coordonnées :',
+        '- Nom / prénom : ' + nom,
+        '- Établissement : ' + etab,
+        '- Téléphone : ' + tel,
+        '- Email : ' + email,
+        '',
+        'Sélection :',
+        recapLines.length ? recapLines.join('\n') : '- (aucune sélection)'
+      ].join('\n');
+
+      const templateParams = {
+        prenom,
+        nom: nomDeFamille || nom,
+        email,
+        telephone: tel,
+        etablissement: etab,
+        sujet: 'Demande de devis (Tunnel tarifs)',
+        message,
+        title: 'Demande de devis (Tunnel tarifs)'
+      };
+
+      emailjs.send('service_p7b71hk', 'template_qcbpgvo', templateParams)
+        .then(() => {
+          document.querySelectorAll('.tunnel-step').forEach(s => s.classList.remove('active'));
+          document.getElementById('ts-success').classList.add('active');
+          document.getElementById('tunnel-progress').style.width = '100%';
+          document.getElementById('tunnel-sub').textContent = 'Demande envoyée';
+          ['f-nom','f-etab','f-tel','f-email'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+          });
+          if (btn) {
+            btn.innerHTML = 'Envoyer ma demande &nbsp;→';
+            btn.disabled = false;
+          }
+        })
+        .catch(() => {
+          alert('Erreur lors de l’envoi. Merci de réessayer ou de nous appeler.');
+          if (btn) {
+            btn.innerHTML = 'Envoyer ma demande &nbsp;→';
+            btn.disabled = false;
+          }
+        });
     }
 
     document.addEventListener('keydown', e => {
