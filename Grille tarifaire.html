@@ -317,6 +317,23 @@
       box-shadow: 0 8px 24px rgba(192,57,43,0.12);
     }
     .tunnel-card:active { transform: translateY(-1px); }
+    .tunnel-card.is-selected {
+      border-color: var(--color-primary);
+      background: #ffffff;
+      box-shadow: 0 10px 26px rgba(0,40,85,0.12);
+    }
+
+    .tunnel-submit:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .tunnel-multi-hint {
+      font-size: 12px;
+      color: var(--color-gray-400);
+      margin-top: -14px;
+      margin-bottom: 16px;
+    }
 
     .tunnel-card__icon {
       width: 48px; height: 48px;
@@ -731,17 +748,14 @@
             <button class="tunnel-card" onclick="choose('frequence','1-3/sem','1 à 3 courses par semaine')">
               <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-calendar-days"></i></div>
               <div class="tunnel-card__label">1 à 3 / semaine</div>
-              <div class="tunnel-card__sub">Rythme léger</div>
             </button>
             <button class="tunnel-card" onclick="choose('frequence','4-7/sem','4 à 7 courses par semaine')">
               <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-calendar-week"></i></div>
               <div class="tunnel-card__label">4 à 7 / semaine</div>
-              <div class="tunnel-card__sub">Rythme soutenu</div>
             </button>
             <button class="tunnel-card" onclick="choose('frequence','+7/sem','Plus de 7 courses par semaine')">
               <div class="tunnel-card__icon icon--purple"><i class="fa-solid fa-layer-group"></i></div>
               <div class="tunnel-card__label">+ 7 / semaine</div>
-              <div class="tunnel-card__sub">Volume important</div>
               <span class="tunnel-card__badge badge--blue">Contrat</span>
             </button>
           </div>
@@ -816,21 +830,27 @@
           <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
           <div class="tunnel-step-label">Étape 3 — Nature du produit</div>
           <div class="tunnel-step-question">Quel type de produit biologique est transporté ?</div>
+          <div class="tunnel-multi-hint">Vous pouvez sélectionner jusqu’à <strong>3</strong> réponses.</div>
           <div class="tunnel-choices">
-            <button class="tunnel-card" onclick="choose('produit','sang','Produits sanguins / poches')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','sang','Produits sanguins / poches', this)">
               <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-droplet"></i></div>
               <div class="tunnel-card__label">Produits sanguins</div>
               <div class="tunnel-card__sub">Poches, concentrés</div>
             </button>
-            <button class="tunnel-card" onclick="choose('produit','organe','Organes / greffons')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','organe','Organes / greffons', this)">
               <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-heart-pulse"></i></div>
               <div class="tunnel-card__label">Organes / greffons</div>
               <div class="tunnel-card__sub">Transplantation</div>
             </button>
-            <button class="tunnel-card" onclick="choose('produit','echantillon','Prélèvements / échantillons')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','echantillon','Prélèvements / échantillons', this)">
               <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-flask"></i></div>
               <div class="tunnel-card__label">Prélèvements</div>
               <div class="tunnel-card__sub">Labo, échantillons</div>
+            </button>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="tunnel-submit" type="button" data-multi-next="produit" onclick="continueMulti('produit')" disabled>
+              Continuer &nbsp;→
             </button>
           </div>
         </div>
@@ -864,21 +884,27 @@
           <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
           <div class="tunnel-step-label">Étape 3 — Nature du produit</div>
           <div class="tunnel-step-question">Quel type de produit biologique est transporté ?</div>
+          <div class="tunnel-multi-hint">Vous pouvez sélectionner jusqu’à <strong>3</strong> réponses.</div>
           <div class="tunnel-choices">
-            <button class="tunnel-card" onclick="choose('produit','sang','Produits sanguins / poches')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','sang','Produits sanguins / poches', this)">
               <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-droplet"></i></div>
               <div class="tunnel-card__label">Produits sanguins</div>
               <div class="tunnel-card__sub">Poches, concentrés</div>
             </button>
-            <button class="tunnel-card" onclick="choose('produit','organe','Organes / greffons')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','organe','Organes / greffons', this)">
               <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-heart-pulse"></i></div>
               <div class="tunnel-card__label">Organes / greffons</div>
               <div class="tunnel-card__sub">Transplantation</div>
             </button>
-            <button class="tunnel-card" onclick="choose('produit','echantillon','Prélèvements / échantillons')">
+            <button class="tunnel-card" type="button" aria-pressed="false" onclick="toggleMulti('produit','echantillon','Prélèvements / échantillons', this)">
               <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-flask"></i></div>
               <div class="tunnel-card__label">Prélèvements</div>
               <div class="tunnel-card__sub">Labo, échantillons</div>
+            </button>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="tunnel-submit" type="button" data-multi-next="produit" onclick="continueMulti('produit')" disabled>
+              Continuer &nbsp;→
             </button>
           </div>
         </div>
@@ -1031,12 +1057,66 @@
         setProgress(2);
         return;
       }
+      proceedNextStep();
+    }
+
+    function proceedNextStep() {
       const flow = TBM.flows[TBM.type];
       const cur  = TBM.history[TBM.history.length - 1];
       const idx  = flow.indexOf(cur);
       const next = flow[idx + 1];
       if (next === 'ts-4') { buildRecap(); showStep('ts-4'); setProgress(4); }
       else { showStep(next); setProgress(idx + 2); }
+    }
+
+    function getMultiState(key) {
+      const cur = TBM.data[key];
+      if (!cur || !Array.isArray(cur.value) || !Array.isArray(cur.label)) {
+        TBM.data[key] = { value: [], label: [] };
+      }
+      return TBM.data[key];
+    }
+
+    function updateMultiUI(stepEl, key) {
+      if (!stepEl) return;
+      const state = getMultiState(key);
+      const nextBtn = stepEl.querySelector('[data-multi-next="' + key + '"]');
+      if (nextBtn) nextBtn.disabled = state.value.length < 1 || state.value.length > 3;
+    }
+
+    function toggleMulti(key, value, label, btnEl) {
+      const state = getMultiState(key);
+      const idx = state.value.indexOf(value);
+      const stepEl = btnEl ? btnEl.closest('.tunnel-step') : null;
+
+      if (idx >= 0) {
+        state.value.splice(idx, 1);
+        state.label.splice(idx, 1);
+        if (btnEl) { btnEl.classList.remove('is-selected'); btnEl.setAttribute('aria-pressed', 'false'); }
+        updateMultiUI(stepEl, key);
+        return;
+      }
+
+      if (state.value.length >= 3) {
+        alert('Vous pouvez sélectionner jusqu’à 3 éléments maximum.');
+        return;
+      }
+
+      state.value.push(value);
+      state.label.push(label);
+      if (btnEl) { btnEl.classList.add('is-selected'); btnEl.setAttribute('aria-pressed', 'true'); }
+      updateMultiUI(stepEl, key);
+    }
+
+    function continueMulti(key) {
+      const state = getMultiState(key);
+      const curStep = TBM.history[TBM.history.length - 1];
+      updateMultiUI(document.getElementById(curStep), key);
+      if (state.value.length < 1) {
+        alert('Sélectionnez au moins 1 élément pour continuer.');
+        return;
+      }
+      proceedNextStep();
     }
 
     function goBack() {
@@ -1055,7 +1135,9 @@
       };
       let html = '<div class="tunnel-recap__title">Votre sélection</div>';
       for (const [k, v] of Object.entries(TBM.data)) {
-        if (labels[k]) html += '<div class="tunnel-recap__row"><span>' + labels[k] + '</span><strong>' + v.label + '</strong></div>';
+        if (!labels[k]) continue;
+        const valLabel = Array.isArray(v.label) ? v.label.join(', ') : v.label;
+        html += '<div class="tunnel-recap__row"><span>' + labels[k] + '</span><strong>' + valLabel + '</strong></div>';
       }
       document.getElementById('tunnel-recap').innerHTML = html;
     }
