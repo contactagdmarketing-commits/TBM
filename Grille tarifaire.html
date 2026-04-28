@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grille tarifaire – Trans Bio Médic</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header scrolled" id="header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="images/logo-tbm.png" alt="Trans Bio Médic" class="logo-img" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Accueil</a></li>
+        <li><a href="pages/notre-societe.html" class="nav-link">Notre société</a></li>
+        <li><a href="pages/solutions.html" class="nav-link">Solutions</a></li>
+        <li><a href="pages/equipements.html" class="nav-link">Équipements</a></li>
+        <li><a href="pages/qualite.html" class="nav-link">Qualité</a></li>
+        <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
+        <li><a href="pages/recrutement.html" class="nav-link nav-link--cta">Recrutement</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Grille tarifaire</span>
+      </div>
+      <h1>Grille tarifaire</h1>
+      <p>Tarifs indicatifs HT – prestations de transport et options.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <style>
+        .tbm-wrap { padding: 1rem 0; font-family: var(--font-family); }
+        .tbm-header { background: #0F6E56; color: #E1F5EE; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .tbm-logo { font-size: 20px; font-weight: 500; letter-spacing: 0.5px; }
+        .tbm-subtitle { font-size: 12px; color: #9FE1CB; margin-top: 3px; }
+        .tbm-badge { background: #085041; color: #9FE1CB; font-size: 11px; padding: 4px 10px; border-radius: 12px; }
+        .tbm-body { border: 0.5px solid var(--color-gray-200); border-top: none; border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg); overflow: hidden; }
+        .tbm-section { border-bottom: 0.5px solid var(--color-gray-200); }
+        .tbm-section:last-child { border-bottom: none; }
+        .tbm-section-title { display: flex; align-items: center; gap: 10px; padding: 10px 1.25rem; font-size: 13px; font-weight: 600; }
+        .tbm-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        .tbm-table th { font-size: 11px; font-weight: 600; color: var(--color-gray-700); padding: 6px 1.25rem; text-align: left; border-bottom: 0.5px solid var(--color-gray-200); }
+        .tbm-table th:last-child { text-align: right; }
+        .tbm-table td { font-size: 13px; padding: 9px 1.25rem; color: var(--color-gray-900); border-bottom: 0.5px solid var(--color-gray-200); vertical-align: middle; }
+        .tbm-table tr:last-child td { border-bottom: none; }
+        .tbm-table td:last-child { text-align: right; }
+        .tbm-table tr:nth-child(even) td { background: var(--color-gray-100); }
+        .price { font-weight: 700; white-space: nowrap; }
+        .price-green { color: #0F6E56; }
+        .price-blue { color: #185FA5; }
+        .price-amber { color: #854F0B; }
+        .price-coral { color: #993C1D; }
+        .price-purple { color: #534AB7; }
+        .price-pink { color: #993556; }
+        .note { font-size: 11px; color: var(--color-gray-700); padding: 6px 1.25rem 8px; }
+        .s1 .tbm-section-title { background: #E1F5EE; color: #085041; }
+        .s2 .tbm-section-title { background: #E6F1FB; color: #0C447C; }
+        .s3 .tbm-section-title { background: #FAEEDA; color: #633806; }
+        .s4 .tbm-section-title { background: #FAECE7; color: #4A1B0C; }
+        .s5 .tbm-section-title { background: #EEEDFE; color: #3C3489; }
+        .s6 .tbm-section-title { background: #FBEAF0; color: #4B1528; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .d1 { background: #1D9E75; }
+        .d2 { background: #378ADD; }
+        .d3 { background: #BA7517; }
+        .d4 { background: #D85A30; }
+        .d5 { background: #7F77DD; }
+        .d6 { background: #D4537E; }
+        .on-devis { font-size: 11px; color: var(--color-gray-700); font-style: italic; }
+        @media (max-width: 700px) {
+          .tbm-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+          .tbm-table th, .tbm-table td { padding-left: 16px; padding-right: 16px; }
+        }
+      </style>
+
+      <div class="tbm-wrap">
+        <div class="tbm-header">
+          <div>
+            <div class="tbm-logo">TRANS BIO MÉDIC</div>
+            <div class="tbm-subtitle">Transport dédié — produits sanguins, plasma, prélèvements biologiques, médicaments sensibles</div>
+          </div>
+          <div class="tbm-badge">France 2026 — Tarifs HT</div>
+        </div>
+
+        <div class="tbm-body">
+          <div class="tbm-section s1">
+            <div class="tbm-section-title"><span class="dot d1"></span>1. Courses urgentes immédiates (point à point)</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
+              <tbody>
+                <tr><td>Course urgente intra-ville (0 – 10 km)</td><td><span class="price price-green">65 €</span></td></tr>
+                <tr><td>Course urgente 10 à 20 km</td><td><span class="price price-green">89 €</span></td></tr>
+                <tr><td>Course urgente 20 à 30 km</td><td><span class="price price-green">115 €</span></td></tr>
+                <tr><td>Km supplémentaire au-delà</td><td><span class="price price-green">1,80 €/km</span></td></tr>
+              </tbody>
+            </table>
+            <div class="note">Délai départ chauffeur : 15 à 30 min selon créneau.</div>
+          </div>
+
+          <div class="tbm-section s2">
+            <div class="tbm-section-title"><span class="dot d2"></span>2. Navettes programmées / régulières</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
+              <tbody>
+                <tr><td>Liaison quotidienne site ↔ site (1 rotation/jour)</td><td><span class="price price-blue">dès 790 €/mois</span></td></tr>
+                <tr><td>2 rotations / jour</td><td><span class="price price-blue">dès 1 390 €/mois</span></td></tr>
+                <tr><td>3 rotations / jour</td><td><span class="price price-blue">dès 1 990 €/mois</span></td></tr>
+                <tr><td>Tournée multi-sites</td><td><span class="on-devis">Sur étude</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbm-section s3">
+            <div class="tbm-section-title"><span class="dot d3"></span>3. Nuit / week-end / jours fériés</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Période</th><th>Majoration</th></tr></thead>
+              <tbody>
+                <tr><td>Nuit (20h – 6h)</td><td><span class="price price-amber">+ 35 %</span></td></tr>
+                <tr><td>Samedi</td><td><span class="price price-amber">+ 20 %</span></td></tr>
+                <tr><td>Dimanche / jour férié</td><td><span class="price price-amber">+ 50 %</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbm-section s4">
+            <div class="tbm-section-title"><span class="dot d4"></span>4. Astreinte dédiée établissement</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
+              <tbody>
+                <tr><td>Astreinte soirée (18h – 00h)</td><td><span class="price price-coral">180 €</span></td></tr>
+                <tr><td>Astreinte nuit complète</td><td><span class="price price-coral">320 €</span></td></tr>
+                <tr><td>Astreinte week-end</td><td><span class="on-devis">Sur devis</span></td></tr>
+                <tr><td>Mise à disposition chauffeur + véhicule</td><td><span class="on-devis">Sur devis</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbm-section s5">
+            <div class="tbm-section-title"><span class="dot d5"></span>5. Longue distance / inter-sites / transferts régionaux</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
+              <tbody>
+                <tr><td>Départ + prise en charge</td><td><span class="price price-purple">45 €</span></td></tr>
+                <tr><td>Kilométrage dédié</td><td><span class="price price-purple">1,45 €/km</span></td></tr>
+                <tr><td>Attente sur site &gt; 15 min</td><td><span class="price price-purple">18 €/15 min</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tbm-section s6">
+            <div class="tbm-section-title"><span class="dot d6"></span>6. Options premium</div>
+            <table class="tbm-table">
+              <thead><tr><th style="width:70%">Option</th><th>Tarif HT</th></tr></thead>
+              <tbody>
+                <tr><td>Double équipage — urgence absolue</td><td><span class="price price-pink">+ 45 €</span></td></tr>
+                <tr><td>Température dirigée contrôlée</td><td><span class="price price-pink">+ 25 €</span></td></tr>
+                <tr><td>Traçabilité renforcée / reporting mensuel</td><td><span class="price price-pink">+ 39 €/mois</span></td></tr>
+                <tr><td>Livraison main propre nominative</td><td><span class="price price-pink">+ 15 €</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="images/logo-tbm.png" alt="Trans Bio Médic" class="logo-img" />
+          </a>
+          <p>Spécialiste du transport de produits biologiques et sanguins, disponible 24h/24 et 7j/7.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="pages/notre-societe.html">Notre société</a></li>
+            <li><a href="pages/solutions.html">Solutions</a></li>
+            <li><a href="pages/equipements.html">Équipements</a></li>
+            <li><a href="pages/qualite.html">Qualité</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Informations</h4>
+          <ul>
+            <li><a href="pages/contact.html">Contact</a></li>
+            <li><a href="pages/recrutement.html">Recrutement</a></li>
+            <li><a href="#">Mentions légales</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-phone"></i><a href="tel:+33XXXXXXXXX">+33 (0)X XX XX XX XX</a></li>
+            <li><i class="fa-solid fa-envelope"></i><a href="mailto:contact@transbiomedic.fr">contact@transbiomedic.fr</a></li>
+            <li><i class="fa-solid fa-clock"></i><span>24h/24 – 7j/7</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Trans Bio Médic – Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
