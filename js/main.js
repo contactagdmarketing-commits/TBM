@@ -112,9 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---- Active nav link ---- */
-  const currentPage = window.location.pathname.split('/').pop();
+  const currentPage = decodeURIComponent(window.location.pathname.split('/').pop() || '');
   document.querySelectorAll('.nav-link').forEach(link => {
-    const href = link.getAttribute('href').split('/').pop();
+    const rawHref = link.getAttribute('href') || '';
+    const href = decodeURIComponent(rawHref.split('/').pop() || '');
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active');
     } else {
