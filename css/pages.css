@@ -257,8 +257,10 @@
 /* ---- Qualité Blocks ---- */
 .quality-blocks {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
+  max-width: 980px;
+  margin: 0 auto;
 }
 .quality-block {
   background: white;
@@ -297,8 +299,10 @@
 /* ---- Réglementations ---- */
 .regs-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
+  max-width: 980px;
+  margin: 0 auto;
 }
 .reg-item {
   background: white;
@@ -603,8 +607,8 @@
    ======================== */
 @media (max-width: 1000px) {
   .values-grid { grid-template-columns: repeat(2, 1fr); }
-  .quality-blocks { grid-template-columns: repeat(2, 1fr); }
-  .regs-grid { grid-template-columns: repeat(2, 1fr); }
+  .quality-blocks { grid-template-columns: repeat(2, 1fr); max-width: none; }
+  .regs-grid { grid-template-columns: repeat(2, 1fr); max-width: none; }
   .org-grid { grid-template-columns: repeat(2, 1fr); }
   .org-grid::before { display: none; }
   .equip-grid { grid-template-columns: repeat(2, 1fr); }
