@@ -4,18 +4,473 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grille tarifaire – Trans Bio Médic</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/pages.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* =============================================
+       VARIABLES & RESET
+    ============================================= */
+    :root {
+      --color-primary: #002855;
+      --color-primary-dark: #001a3a;
+      --color-accent: #c0392b;
+      --color-accent-light: #e74c3c;
+      --color-white: #ffffff;
+      --color-gray-100: #f4f6f9;
+      --color-gray-200: #e8ecf0;
+      --color-gray-400: #9aa5b4;
+      --color-gray-700: #4a5568;
+      --color-gray-900: #1a202c;
+      --font-family: 'Inter', sans-serif;
+      --border-radius: 12px;
+      --border-radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+      --transition: 0.3s ease;
+      --header-height: 70px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-family); color: var(--color-gray-900); background: var(--color-white); line-height: 1.65; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+
+    /* =============================================
+       HEADER
+    ============================================= */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-height);
+      z-index: 1000;
+      background: var(--color-primary-dark);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo { display: flex; align-items: center; flex-shrink: 0; margin-right: auto; }
+    .logo-img { height: 21px; width: auto; object-fit: contain; display: block; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18)); transition: transform var(--transition); }
+    .logo:hover .logo-img { transform: scale(1.04); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link { color: rgba(255,255,255,0.85); font-size: 0.875rem; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all var(--transition); }
+    .nav-link:hover, .nav-link.active { color: white; background: rgba(255,255,255,0.12); }
+    .nav-link--cta { background: var(--color-accent); color: white !important; padding: 8px 16px; margin-left: 8px; }
+    .nav-link--cta:hover { background: var(--color-accent-light) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all var(--transition); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* =============================================
+       PAGE HERO
+    ============================================= */
+    .page-hero {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      padding: calc(var(--header-height) + 60px) 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; margin-bottom: 16px; }
+    .page-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; }
+    .breadcrumb { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 24px; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+    .breadcrumb a { color: rgba(255,255,255,0.6); transition: color var(--transition); }
+    .breadcrumb a:hover { color: white; }
+    .breadcrumb i { font-size: 0.6rem; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer { background: var(--color-primary-dark); color: rgba(255,255,255,0.75); padding-top: 72px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a { width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); transition: all var(--transition); }
+    .footer-social a:hover { background: var(--color-accent); color: white; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: white; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.55); transition: color var(--transition); }
+    .footer-col ul li a:hover { color: white; }
+    .footer-contact { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contact li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: rgba(255,255,255,0.55); }
+    .footer-contact li i { color: var(--color-accent); margin-top: 3px; width: 14px; flex-shrink: 0; }
+    .footer-contact li a { color: rgba(255,255,255,0.55); transition: color var(--transition); }
+    .footer-contact li a:hover { color: white; }
+    .footer-bottom { padding: 24px 0; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+    /* =============================================
+       GRILLE TARIFAIRE
+    ============================================= */
+    .tbm-wrap { padding: 1rem 0; }
+    .tbm-header { background: #0F6E56; color: #E1F5EE; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .tbm-logo { font-size: 20px; font-weight: 500; letter-spacing: 0.5px; }
+    .tbm-subtitle { font-size: 12px; color: #9FE1CB; margin-top: 3px; }
+    .tbm-badge { background: #085041; color: #9FE1CB; font-size: 11px; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+    .tbm-body { border: 0.5px solid var(--color-gray-200); border-top: none; border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg); overflow: hidden; }
+    .tbm-section { border-bottom: 0.5px solid var(--color-gray-200); }
+    .tbm-section:last-child { border-bottom: none; }
+    .tbm-section-title { display: flex; align-items: center; gap: 10px; padding: 10px 1.25rem; font-size: 13px; font-weight: 600; }
+    .tbm-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .tbm-table th { font-size: 11px; font-weight: 600; color: var(--color-gray-700); padding: 6px 1.25rem; text-align: left; border-bottom: 0.5px solid var(--color-gray-200); }
+    .tbm-table th:last-child { text-align: right; }
+    .tbm-table td { font-size: 13px; padding: 9px 1.25rem; color: var(--color-gray-900); border-bottom: 0.5px solid var(--color-gray-200); vertical-align: middle; }
+    .tbm-table tr:last-child td { border-bottom: none; }
+    .tbm-table td:last-child { text-align: right; }
+    .tbm-table tr:nth-child(even) td { background: var(--color-gray-100); }
+    .price { font-weight: 700; white-space: nowrap; }
+    .price-green  { color: #0F6E56; }
+    .price-blue   { color: #185FA5; }
+    .price-amber  { color: #854F0B; }
+    .price-coral  { color: #993C1D; }
+    .price-purple { color: #534AB7; }
+    .price-pink   { color: #993556; }
+    .note { font-size: 11px; color: var(--color-gray-700); padding: 6px 1.25rem 8px; }
+    .tbm-inline-note { font-size: 12px; font-style: italic; color: var(--color-gray-400); }
+    .s1 .tbm-section-title { background: #E1F5EE; color: #085041; }
+    .s2 .tbm-section-title { background: #E6F1FB; color: #0C447C; }
+    .s3 .tbm-section-title { background: #FAEEDA; color: #633806; }
+    .s4 .tbm-section-title { background: #FAECE7; color: #4A1B0C; }
+    .s5 .tbm-section-title { background: #EEEDFE; color: #3C3489; }
+    .s6 .tbm-section-title { background: #FBEAF0; color: #4B1528; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .d1 { background: #1D9E75; } .d2 { background: #378ADD; } .d3 { background: #BA7517; }
+    .d4 { background: #D85A30; } .d5 { background: #7F77DD; } .d6 { background: #D4537E; }
+    .on-devis { font-size: 11px; color: var(--color-gray-700); font-style: italic; }
+
+    /* =============================================
+       BANNIÈRE D'APPEL TUNNEL
+    ============================================= */
+    .tunnel-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: #eef3ff;
+      border: 1px solid #c8d5f5;
+      border-radius: var(--border-radius);
+      padding: 20px 28px;
+      margin-bottom: 28px;
+    }
+    .tunnel-banner__text p:first-child { font-size: 15px; font-weight: 600; color: var(--color-primary); margin-bottom: 4px; }
+    .tunnel-banner__text p:last-child  { font-size: 13px; color: var(--color-gray-700); }
+    .tunnel-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .tunnel-banner__btn:hover  { background: var(--color-accent-light); }
+    .tunnel-banner__btn:active { transform: scale(.97); }
+
+    /* =============================================
+       OVERLAY
+    ============================================= */
+    #tunnel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 24, 56, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    #tunnel-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* =============================================
+       MODAL
+    ============================================= */
+    .tunnel-modal {
+      background: #fff;
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--border-radius-lg);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(16px) scale(.98);
+      transition: transform .3s cubic-bezier(.34,1.4,.64,1);
+      font-family: var(--font-family);
+      box-shadow: var(--shadow-lg);
+    }
+    #tunnel-overlay.open .tunnel-modal { transform: translateY(0) scale(1); }
+
+    .tunnel-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--color-gray-200);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 2;
+      border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    }
+    .tunnel-modal__title { font-size: 16px; font-weight: 700; color: var(--color-primary); }
+    .tunnel-modal__sub   { font-size: 12px; color: var(--color-gray-400); margin-top: 2px; }
+
+    .tunnel-modal__close {
+      width: 34px; height: 34px;
+      border: 1px solid var(--color-gray-200);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-gray-400);
+      font-size: 15px;
+      transition: background var(--transition), color var(--transition);
+      flex-shrink: 0;
+    }
+    .tunnel-modal__close:hover { background: var(--color-gray-100); color: var(--color-primary); }
+
+    .tunnel-progress { height: 3px; background: var(--color-gray-200); }
+    .tunnel-progress__fill { height: 100%; background: var(--color-accent); transition: width .35s ease; }
+
+    .tunnel-modal__body { padding: 28px 24px 24px; }
+
+    .tunnel-step-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 8px;
+    }
+    .tunnel-step-question {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+
+    /* =============================================
+       CARTES DE RÉPONSE HORIZONTALES
+    ============================================= */
+    .tunnel-choices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+    }
+    .tunnel-card {
+      background: var(--color-gray-100);
+      border: 1.5px solid var(--color-gray-200);
+      border-radius: var(--border-radius);
+      padding: 20px 14px 16px;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-family);
+      transition: border-color var(--transition), background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .tunnel-card:hover {
+      border-color: var(--color-accent);
+      background: #fff5f3;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(192,57,43,0.12);
+    }
+    .tunnel-card:active { transform: translateY(-1px); }
+
+    .tunnel-card__icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .icon--blue   { background: #deeafb; color: #185FA5; }
+    .icon--green  { background: #d6f0e4; color: #0F6E56; }
+    .icon--red    { background: #fbe0de; color: var(--color-accent); }
+    .icon--amber  { background: #faeeda; color: #854F0B; }
+    .icon--purple { background: #ece9fb; color: #534AB7; }
+
+    .tunnel-card__label { font-size: 13px; font-weight: 700; color: var(--color-primary); line-height: 1.3; }
+    .tunnel-card__sub   { font-size: 11px; color: var(--color-gray-400); line-height: 1.4; margin-top: -4px; }
+
+    .tunnel-card__badge {
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px;
+      letter-spacing: .04em;
+    }
+    .badge--red   { background: #fbe0de; color: var(--color-accent); }
+    .badge--amber { background: #faeeda; color: #854F0B; }
+    .badge--blue  { background: #deeafb; color: #185FA5; }
+
+    /* =============================================
+       BOUTON RETOUR
+    ============================================= */
+    .tunnel-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--color-gray-400);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: var(--font-family);
+      margin-bottom: 18px;
+      transition: color var(--transition);
+    }
+    .tunnel-back:hover { color: var(--color-primary); }
+
+    /* =============================================
+       RÉCAPITULATIF
+    ============================================= */
+    .tunnel-recap {
+      background: var(--color-gray-100);
+      border: 1px solid var(--color-gray-200);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .tunnel-recap__title { font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--color-gray-400); margin-bottom: 10px; }
+    .tunnel-recap__row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 5px 0; border-bottom: 1px solid var(--color-gray-200); color: var(--color-gray-700); }
+    .tunnel-recap__row:last-child { border-bottom: none; }
+    .tunnel-recap__row strong { color: var(--color-primary); font-weight: 600; text-align: right; max-width: 58%; }
+
+    /* =============================================
+       FORMULAIRE
+    ============================================= */
+    .tunnel-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+    .tunnel-form-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--color-gray-700); margin-bottom: 6px; }
+    .tunnel-form-input {
+      width: 100%; padding: 11px 14px;
+      background: var(--color-gray-100);
+      border: 1.5px solid var(--color-gray-200);
+      border-radius: 8px;
+      font-family: var(--font-family);
+      font-size: 14px; color: var(--color-gray-900);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .tunnel-form-input::placeholder { color: var(--color-gray-400); }
+    .tunnel-form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,40,85,0.08); }
+
+    .tunnel-submit {
+      width: 100%; padding: 14px;
+      background: var(--color-accent);
+      color: #fff; border: none;
+      border-radius: 8px;
+      font-family: var(--font-family);
+      font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .tunnel-submit:hover  { background: var(--color-accent-light); }
+    .tunnel-submit:active { transform: scale(.98); }
+
+    .tunnel-tel { text-align: center; font-size: 13px; color: var(--color-gray-400); margin-top: 14px; }
+    .tunnel-tel a { color: var(--color-primary); font-weight: 600; }
+    .tunnel-tel a:hover { text-decoration: underline; }
+
+    /* =============================================
+       SUCCÈS
+    ============================================= */
+    .tunnel-success { text-align: center; padding: 12px 0 8px; }
+    .tunnel-success__icon {
+      width: 64px; height: 64px;
+      background: #d6f0e4;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px; color: #0F6E56;
+    }
+    .tunnel-success__title { font-size: 20px; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; }
+    .tunnel-success__sub   { font-size: 14px; color: var(--color-gray-700); line-height: 1.6; margin-bottom: 28px; }
+
+    /* steps */
+    .tunnel-step { display: none; }
+    .tunnel-step.active { display: block; }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: var(--header-height); left: 0; right: 0;
+        background: var(--color-primary-dark);
+        flex-direction: column;
+        padding: 24px; gap: 8px;
+        transform: translateY(-100%); opacity: 0;
+        pointer-events: none;
+        transition: all var(--transition);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 999;
+      }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+      .nav-link { width: 100%; padding: 12px 16px; }
+      .nav-link--cta { text-align: center; margin-left: 0; margin-top: 8px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .tunnel-form-grid { grid-template-columns: 1fr; }
+      .tbm-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .tbm-table td, .tbm-table th { padding-left: 12px; padding-right: 12px; font-size: 11px; white-space: nowrap; }
+      .tbm-table td { overflow: hidden; text-overflow: ellipsis; }
+      .tbm-table td:first-child { width: 74%; }
+      .tbm-table td:last-child, .tbm-table th:last-child { width: 26%; }
+      .tunnel-banner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <header class="header scrolled" id="header">
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
+  <header class="header" id="header">
     <nav class="navbar">
       <a href="index.html" class="logo">
         <img src="images/logo-tbm.png" alt="Trans Bio Médic" class="logo-img" />
@@ -26,7 +481,7 @@
         <li><a href="pages/solutions.html" class="nav-link">Solutions</a></li>
         <li><a href="pages/equipements.html" class="nav-link">Équipements</a></li>
         <li><a href="pages/qualite.html" class="nav-link">Qualité</a></li>
-        <li><a href="Grille%20tarifaire.html" class="nav-link">Tarifs</a></li>
+        <li><a href="Grille%20tarifaire.html" class="nav-link active">Tarifs</a></li>
         <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
         <li><a href="pages/recrutement.html" class="nav-link nav-link--cta">Recrutement</a></li>
       </ul>
@@ -36,6 +491,9 @@
     </nav>
   </header>
 
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
   <section class="page-hero">
     <div class="page-hero-content">
       <div class="breadcrumb">
@@ -48,65 +506,13 @@
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════
+       CONTENU
+  ══════════════════════════════════════ -->
   <section class="section">
     <div class="container">
-      <style>
-        .tbm-wrap { padding: 1rem 0; font-family: var(--font-family); }
-        .tbm-header { background: #0F6E56; color: #E1F5EE; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .tbm-logo { font-size: 20px; font-weight: 500; letter-spacing: 0.5px; }
-        .tbm-subtitle { font-size: 12px; color: #9FE1CB; margin-top: 3px; }
-        .tbm-badge { background: #085041; color: #9FE1CB; font-size: 11px; padding: 4px 10px; border-radius: 12px; }
-        .tbm-body { border: 0.5px solid var(--color-gray-200); border-top: none; border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg); overflow: hidden; }
-        .tbm-section { border-bottom: 0.5px solid var(--color-gray-200); }
-        .tbm-section:last-child { border-bottom: none; }
-        .tbm-section-title { display: flex; align-items: center; gap: 10px; padding: 10px 1.25rem; font-size: 13px; font-weight: 600; }
-        .tbm-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-        .tbm-table th { font-size: 11px; font-weight: 600; color: var(--color-gray-700); padding: 6px 1.25rem; text-align: left; border-bottom: 0.5px solid var(--color-gray-200); }
-        .tbm-table th:last-child { text-align: right; }
-        .tbm-table td { font-size: 13px; padding: 9px 1.25rem; color: var(--color-gray-900); border-bottom: 0.5px solid var(--color-gray-200); vertical-align: middle; }
-        .tbm-table tr:last-child td { border-bottom: none; }
-        .tbm-table td:last-child { text-align: right; }
-        .tbm-table tr:nth-child(even) td { background: var(--color-gray-100); }
-        .price { font-weight: 700; white-space: nowrap; }
-        .price-green { color: #0F6E56; }
-        .price-blue { color: #185FA5; }
-        .price-amber { color: #854F0B; }
-        .price-coral { color: #993C1D; }
-        .price-purple { color: #534AB7; }
-        .price-pink { color: #993556; }
-        .note { font-size: 11px; color: var(--color-gray-700); padding: 6px 1.25rem 8px; }
-        .tbm-inline-note { font-size: 12px; font-style: italic; color: var(--color-gray-400); }
-        .s1 .tbm-section-title { background: #E1F5EE; color: #085041; }
-        .s2 .tbm-section-title { background: #E6F1FB; color: #0C447C; }
-        .s3 .tbm-section-title { background: #FAEEDA; color: #633806; }
-        .s4 .tbm-section-title { background: #FAECE7; color: #4A1B0C; }
-        .s5 .tbm-section-title { background: #EEEDFE; color: #3C3489; }
-        .s6 .tbm-section-title { background: #FBEAF0; color: #4B1528; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-        .d1 { background: #1D9E75; }
-        .d2 { background: #378ADD; }
-        .d3 { background: #BA7517; }
-        .d4 { background: #D85A30; }
-        .d5 { background: #7F77DD; }
-        .d6 { background: #D4537E; }
-        .on-devis { font-size: 11px; color: var(--color-gray-700); font-style: italic; }
-        @media (max-width: 700px) {
-          .tbm-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-          .tbm-table th, .tbm-table td { padding-left: 16px; padding-right: 16px; }
-          /* Mobile: pas de scroll, 1 ligne, ellipsis sur la prestation */
-          .tbm-table { width: 100%; table-layout: fixed; }
-          .tbm-table th, .tbm-table td { white-space: nowrap; }
-          .tbm-table td { overflow: hidden; text-overflow: ellipsis; }
-          .tbm-table td:first-child { width: 74%; }
-          .tbm-table td:last-child,
-          .tbm-table th:last-child { width: 26%; }
-          .tbm-table td:last-child { overflow: visible; text-overflow: clip; }
-          .price { white-space: nowrap; font-size: 11px; }
-          .tbm-table td, .tbm-table th { font-size: 11px; }
-          .tbm-table th, .tbm-table td { padding-left: 12px; padding-right: 12px; }
-        }
-      </style>
 
+      <!-- Grille tarifaire -->
       <div class="tbm-wrap">
         <div class="tbm-header">
           <div>
@@ -115,9 +521,7 @@
           </div>
           <div class="tbm-badge">France 2026 — Tarifs HT</div>
         </div>
-
         <div class="tbm-body">
-          <!-- Ordre : 1, 2, 3, 4, 5, 6 -->
 
           <div class="tbm-section s2">
             <div class="tbm-section-title"><span class="dot d2"></span>1. Navettes programmées / régulières</div>
@@ -138,7 +542,7 @@
               <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
               <tbody>
                 <tr><td>Départ + prise en charge</td><td><span class="price price-purple">45 €</span></td></tr>
-                <tr><td>Kilométrage dédié > 20 Km</td><td><span class="price price-purple">1,45 €/Km</span></td></tr>
+                <tr><td>Kilométrage dédié &gt; 20 Km</td><td><span class="price price-purple">1,45 €/Km</span></td></tr>
                 <tr><td>Attente sur site &gt; 15 min</td><td><span class="price price-purple">18 €/15 min</span></td></tr>
               </tbody>
             </table>
@@ -195,11 +599,15 @@
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -247,6 +655,436 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <!-- ══════════════════════════════════════
+       POPUP TUNNEL
+  ══════════════════════════════════════ -->
+  <div id="tunnel-overlay" onclick="handleOverlayClick(event)" role="dialog" aria-modal="true">
+    <div class="tunnel-modal" id="tunnel-modal">
+
+      <div class="tunnel-modal__header">
+        <div>
+          <div class="tunnel-modal__title">Estimation tarifaire</div>
+          <div class="tunnel-modal__sub" id="tunnel-sub">Étape 1 sur 4</div>
+        </div>
+        <button class="tunnel-modal__close" onclick="closeTunnel()" aria-label="Fermer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="tunnel-progress">
+        <div class="tunnel-progress__fill" id="tunnel-progress" style="width:0%"></div>
+      </div>
+
+      <div class="tunnel-modal__body">
+
+        <!-- INTRO -->
+        <div class="tunnel-step active" id="ts-intro">
+          <div style="text-align:center;padding:12px 0 8px;">
+            <div style="width:56px;height:56px;background:#deeafb;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;color:#185FA5;">
+              <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <div style="font-size:20px;font-weight:800;color:var(--color-primary);margin-bottom:10px;line-height:1.3;">Vous ne savez pas quel tarif s'applique à votre besoin ?</div>
+            <div style="font-size:14px;color:var(--color-gray-700);line-height:1.6;margin-bottom:28px;">Répondez à <strong>3 questions</strong> et obtenez une estimation personnalisée en 60 secondes.</div>
+            <button class="tunnel-submit" onclick="startTunnel()" style="max-width:320px;margin:0 auto;">
+              Commencer l'estimation &nbsp;→
+            </button>
+            <p class="tunnel-tel" style="margin-top:16px;">Ou appelez-nous directement : <a href="tel:+33686258433">06 86 25 84 33</a></p>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 1 — type -->
+        <div class="tunnel-step" id="ts-1">
+          <div class="tunnel-step-label">Étape 1 — Type de prestation</div>
+          <div class="tunnel-step-question">Quel type de transport recherchez-vous ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('type','navette','Navette régulière / programmée')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-rotate"></i></div>
+              <div class="tunnel-card__label">Navette régulière</div>
+              <div class="tunnel-card__sub">Programmée / récurrente</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('type','longue','Longue distance inter-sites')">
+              <div class="tunnel-card__icon icon--purple"><i class="fa-solid fa-road"></i></div>
+              <div class="tunnel-card__label">Longue distance</div>
+              <div class="tunnel-card__sub">Inter-sites / régional</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('type','urgente','Course urgente immédiate')">
+              <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-bolt"></i></div>
+              <div class="tunnel-card__label">Course urgente</div>
+              <div class="tunnel-card__sub">Départ immédiat</div>
+              <span class="tunnel-card__badge badge--red">Urgent</span>
+            </button>
+            <button class="tunnel-card" onclick="choose('type','astreinte','Astreinte dédiée établissement')">
+              <div class="tunnel-card__icon icon--amber"><i class="fa-solid fa-clock"></i></div>
+              <div class="tunnel-card__label">Astreinte dédiée</div>
+              <div class="tunnel-card__sub">Nuit / WE / fériés</div>
+              <span class="tunnel-card__badge badge--amber">Contrat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 2a — Navette : fréquence -->
+        <div class="tunnel-step" id="ts-2a">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 2 — Fréquence</div>
+          <div class="tunnel-step-question">À quelle fréquence avez-vous besoin de ce transport ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('frequence','1-3/sem','1 à 3 courses par semaine')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-calendar-days"></i></div>
+              <div class="tunnel-card__label">1 à 3 / semaine</div>
+              <div class="tunnel-card__sub">Rythme léger</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('frequence','4-7/sem','4 à 7 courses par semaine')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-calendar-week"></i></div>
+              <div class="tunnel-card__label">4 à 7 / semaine</div>
+              <div class="tunnel-card__sub">Rythme soutenu</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('frequence','+7/sem','Plus de 7 courses par semaine')">
+              <div class="tunnel-card__icon icon--purple"><i class="fa-solid fa-layer-group"></i></div>
+              <div class="tunnel-card__label">+ 7 / semaine</div>
+              <div class="tunnel-card__sub">Volume important</div>
+              <span class="tunnel-card__badge badge--blue">Contrat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 2b — Longue distance : horaire -->
+        <div class="tunnel-step" id="ts-2b">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 2 — Plage horaire</div>
+          <div class="tunnel-step-question">À quelle plage horaire se déroule le transport ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('horaire','journee','Journée ouvrée (lun–ven, 7h–20h)')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-sun"></i></div>
+              <div class="tunnel-card__label">Journée ouvrée</div>
+              <div class="tunnel-card__sub">Lun–ven, 7h à 20h</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('horaire','nuit-we','Nuit / week-end / jour férié')">
+              <div class="tunnel-card__icon icon--amber"><i class="fa-solid fa-moon"></i></div>
+              <div class="tunnel-card__label">Nuit / WE / férié</div>
+              <div class="tunnel-card__sub">Hors horaires ouverts</div>
+              <span class="tunnel-card__badge badge--amber">Majoration</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 2c — Urgente : horaire -->
+        <div class="tunnel-step" id="ts-2c">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 2 — Moment du départ</div>
+          <div class="tunnel-step-question">À quel moment la course doit-elle partir ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('horaire','journee','Journée ouvrée')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-sun"></i></div>
+              <div class="tunnel-card__label">Journée ouvrée</div>
+              <div class="tunnel-card__sub">Lun–ven, 7h à 20h</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('horaire','nuit-we','Nuit / week-end / jour férié')">
+              <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-moon"></i></div>
+              <div class="tunnel-card__label">Nuit / WE / férié</div>
+              <div class="tunnel-card__sub">Hors horaires ouverts</div>
+              <span class="tunnel-card__badge badge--red">Majoration</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 2d — Astreinte : durée -->
+        <div class="tunnel-step" id="ts-2d">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 2 — Durée d'astreinte</div>
+          <div class="tunnel-step-question">Sur quelle durée souhaitez-vous l'astreinte ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('duree','soiree','Astreinte soirée (18h–00h)')">
+              <div class="tunnel-card__icon icon--amber"><i class="fa-solid fa-hourglass-half"></i></div>
+              <div class="tunnel-card__label">Soirée</div>
+              <div class="tunnel-card__sub">18h – 00h</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('duree','nuit','Nuit complète (20h–06h)')">
+              <div class="tunnel-card__icon icon--amber"><i class="fa-solid fa-moon"></i></div>
+              <div class="tunnel-card__label">Nuit complète</div>
+              <div class="tunnel-card__sub">20h – 06h</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('duree','weekend','Week-end ou garde 24h')">
+              <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-calendar-xmark"></i></div>
+              <div class="tunnel-card__label">Week-end / 24h</div>
+              <div class="tunnel-card__sub">Sur devis</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3a — Navette : produit -->
+        <div class="tunnel-step" id="ts-3a">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 3 — Nature du produit</div>
+          <div class="tunnel-step-question">Quel type de produit biologique est transporté ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('produit','sang','Produits sanguins / poches')">
+              <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-droplet"></i></div>
+              <div class="tunnel-card__label">Produits sanguins</div>
+              <div class="tunnel-card__sub">Poches, concentrés</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('produit','organe','Organes / greffons')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div class="tunnel-card__label">Organes / greffons</div>
+              <div class="tunnel-card__sub">Transplantation</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('produit','echantillon','Prélèvements / échantillons')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-flask"></i></div>
+              <div class="tunnel-card__label">Prélèvements</div>
+              <div class="tunnel-card__sub">Labo, échantillons</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3b — Longue distance : distance -->
+        <div class="tunnel-step" id="ts-3b">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 3 — Distance estimée</div>
+          <div class="tunnel-step-question">Quelle est la distance approximative du trajet ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('distance','moins-100km','Moins de 100 km')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-location-arrow"></i></div>
+              <div class="tunnel-card__label">Moins de 100 km</div>
+              <div class="tunnel-card__sub">Courte liaison</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('distance','100-200km','100 à 200 km')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-map-location-dot"></i></div>
+              <div class="tunnel-card__label">100 à 200 km</div>
+              <div class="tunnel-card__sub">Liaison régionale</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('distance','plus-200km','Plus de 200 km')">
+              <div class="tunnel-card__icon icon--purple"><i class="fa-solid fa-route"></i></div>
+              <div class="tunnel-card__label">Plus de 200 km</div>
+              <div class="tunnel-card__sub">Longue distance</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3c — Urgente : produit -->
+        <div class="tunnel-step" id="ts-3c">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 3 — Nature du produit</div>
+          <div class="tunnel-step-question">Quel type de produit biologique est transporté ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('produit','sang','Produits sanguins / poches')">
+              <div class="tunnel-card__icon icon--red"><i class="fa-solid fa-droplet"></i></div>
+              <div class="tunnel-card__label">Produits sanguins</div>
+              <div class="tunnel-card__sub">Poches, concentrés</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('produit','organe','Organes / greffons')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div class="tunnel-card__label">Organes / greffons</div>
+              <div class="tunnel-card__sub">Transplantation</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('produit','echantillon','Prélèvements / échantillons')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-flask"></i></div>
+              <div class="tunnel-card__label">Prélèvements</div>
+              <div class="tunnel-card__sub">Labo, échantillons</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3d — Astreinte : véhicules -->
+        <div class="tunnel-step" id="ts-3d">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 3 — Capacité</div>
+          <div class="tunnel-step-question">Combien de véhicules dédiés souhaitez-vous ?</div>
+          <div class="tunnel-choices">
+            <button class="tunnel-card" onclick="choose('vehicules','1','1 véhicule dédié')">
+              <div class="tunnel-card__icon icon--green"><i class="fa-solid fa-van-shuttle"></i></div>
+              <div class="tunnel-card__label">1 véhicule</div>
+              <div class="tunnel-card__sub">Dédié</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('vehicules','2','2 véhicules dédiés')">
+              <div class="tunnel-card__icon icon--blue"><i class="fa-solid fa-truck-medical"></i></div>
+              <div class="tunnel-card__label">2 véhicules</div>
+              <div class="tunnel-card__sub">Dédiés</div>
+            </button>
+            <button class="tunnel-card" onclick="choose('vehicules','multi','Flotte multi-véhicules')">
+              <div class="tunnel-card__icon icon--amber"><i class="fa-solid fa-network-wired"></i></div>
+              <div class="tunnel-card__label">Flotte</div>
+              <div class="tunnel-card__sub">À définir ensemble</div>
+              <span class="tunnel-card__badge badge--amber">Sur devis</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 4 — Coordonnées -->
+        <div class="tunnel-step" id="ts-4">
+          <button class="tunnel-back" onclick="goBack()"><i class="fa-solid fa-chevron-left"></i> Retour</button>
+          <div class="tunnel-step-label">Étape 4 — Vos coordonnées</div>
+          <div class="tunnel-step-question">Dernière étape — nous vous recontactons sous 24h</div>
+          <div class="tunnel-recap" id="tunnel-recap"></div>
+          <div class="tunnel-form-grid">
+            <div>
+              <label class="tunnel-form-label">Nom et prénom *</label>
+              <input type="text" class="tunnel-form-input" id="f-nom" placeholder="Dr. Martin Dupont" />
+            </div>
+            <div>
+              <label class="tunnel-form-label">Établissement *</label>
+              <input type="text" class="tunnel-form-input" id="f-etab" placeholder="CHU Rangueil, EFS Occitanie…" />
+            </div>
+            <div>
+              <label class="tunnel-form-label">Téléphone *</label>
+              <input type="tel" class="tunnel-form-input" id="f-tel" placeholder="06 00 00 00 00" />
+            </div>
+            <div>
+              <label class="tunnel-form-label">Email *</label>
+              <input type="email" class="tunnel-form-input" id="f-email" placeholder="contact@etablissement.fr" />
+            </div>
+          </div>
+          <button class="tunnel-submit" onclick="submitForm()">Envoyer ma demande &nbsp;→</button>
+          <p class="tunnel-tel">Ou appelez-nous directement : <a href="tel:+33686258433">06 86 25 84 33</a></p>
+        </div>
+
+        <!-- SUCCÈS -->
+        <div class="tunnel-step" id="ts-success">
+          <div class="tunnel-success">
+            <div class="tunnel-success__icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="tunnel-success__title">Demande envoyée !</div>
+            <div class="tunnel-success__sub">
+              Nous vous recontactons sous <strong>24h ouvrées</strong> avec une estimation personnalisée.<br>
+              Un accusé de réception vous a été envoyé par email.
+            </div>
+            <button class="tunnel-submit" onclick="closeTunnel()">Fermer et consulter la grille tarifaire</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Hamburger ── */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    /* ── Tunnel ── */
+    const TBM = {
+      type: null, history: [], data: {},
+      flows: {
+        navette:   ['ts-1','ts-2a','ts-3a','ts-4'],
+        longue:    ['ts-1','ts-2b','ts-3b','ts-4'],
+        urgente:   ['ts-1','ts-2c','ts-3c','ts-4'],
+        astreinte: ['ts-1','ts-2d','ts-3d','ts-4'],
+      },
+      total: 4
+    };
+
+    function startTunnel() {
+      showStep('ts-1');
+      setProgress(1);
+    }
+
+    function openTunnel() {
+      document.getElementById('tunnel-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      showStep('ts-intro');
+      document.getElementById('tunnel-progress').style.width = '0%';
+      document.getElementById('tunnel-sub').textContent = 'Estimation tarifaire';
+    }
+
+    function closeTunnel() {
+      document.getElementById('tunnel-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(resetTunnel, 300);
+    }
+
+    function resetTunnel() {
+      TBM.type = null; TBM.history = []; TBM.data = {};
+      showStep('ts-intro');
+      document.getElementById('tunnel-progress').style.width = '0%';
+      document.getElementById('tunnel-sub').textContent = 'Estimation tarifaire';
+      ['f-nom','f-etab','f-tel','f-email'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('tunnel-overlay')) closeTunnel();
+    }
+
+    function showStep(id) {
+      document.querySelectorAll('.tunnel-step').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      TBM.history.push(id);
+      document.getElementById('tunnel-modal').scrollTop = 0;
+    }
+
+    function setProgress(step) {
+      const pct = Math.round((step / TBM.total) * 100);
+      document.getElementById('tunnel-progress').style.width = pct + '%';
+      document.getElementById('tunnel-sub').textContent =
+        step <= TBM.total ? 'Étape ' + step + ' sur ' + TBM.total : 'Récapitulatif';
+    }
+
+    function choose(key, value, label) {
+      TBM.data[key] = { value, label };
+      if (key === 'type') {
+        TBM.type = value;
+        TBM.history = ['ts-1'];
+        showStep(TBM.flows[value][1]);
+        setProgress(2);
+        return;
+      }
+      const flow = TBM.flows[TBM.type];
+      const cur  = TBM.history[TBM.history.length - 1];
+      const idx  = flow.indexOf(cur);
+      const next = flow[idx + 1];
+      if (next === 'ts-4') { buildRecap(); showStep('ts-4'); setProgress(4); }
+      else { showStep(next); setProgress(idx + 2); }
+    }
+
+    function goBack() {
+      TBM.history.pop();
+      const prev = TBM.history.pop() || 'ts-1';
+      const flow = TBM.flows[TBM.type] || [];
+      showStep(prev);
+      setProgress(Math.max(1, flow.indexOf(prev) + 1));
+    }
+
+    function buildRecap() {
+      const labels = {
+        type:'Type de prestation', frequence:'Fréquence', horaire:'Plage horaire',
+        duree:'Durée astreinte', produit:'Produit transporté',
+        distance:'Distance', vehicules:'Nb de véhicules'
+      };
+      let html = '<div class="tunnel-recap__title">Votre sélection</div>';
+      for (const [k, v] of Object.entries(TBM.data)) {
+        if (labels[k]) html += '<div class="tunnel-recap__row"><span>' + labels[k] + '</span><strong>' + v.label + '</strong></div>';
+      }
+      document.getElementById('tunnel-recap').innerHTML = html;
+    }
+
+    function submitForm() {
+      const nom   = document.getElementById('f-nom').value.trim();
+      const etab  = document.getElementById('f-etab').value.trim();
+      const tel   = document.getElementById('f-tel').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      if (!nom || !etab || !tel || !email) {
+        alert('Merci de remplir tous les champs avant d\'envoyer.');
+        return;
+      }
+      /* → Branchez ici votre backend / Formspree / EmailJS */
+      console.log('Demande TBM', { ...TBM.data, nom, etab, tel, email });
+      document.querySelectorAll('.tunnel-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('ts-success').classList.add('active');
+      document.getElementById('tunnel-progress').style.width = '100%';
+      document.getElementById('tunnel-sub').textContent = 'Demande envoyée';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('tunnel-overlay').classList.contains('open')) closeTunnel();
+    });
+
+    /* Ouverture automatique au chargement */
+    window.addEventListener('load', () => {
+      setTimeout(openTunnel, 400);
+    });
+  </script>
 </body>
 </html>
