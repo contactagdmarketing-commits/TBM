@@ -622,6 +622,14 @@ ul { list-style: none; }
   font-size: 8rem;
   color: rgba(255,255,255,0.15);
 }
+.quality-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+  display: block;
+  box-shadow: var(--shadow-lg);
+}
 
 /* ---- PARTNERS ---- */
 .partners-grid {
