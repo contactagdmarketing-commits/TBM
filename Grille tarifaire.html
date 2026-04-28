@@ -93,12 +93,11 @@
         @media (max-width: 700px) {
           .tbm-header { flex-direction: column; align-items: flex-start; gap: 10px; }
           .tbm-table th, .tbm-table td { padding-left: 16px; padding-right: 16px; }
-          /* Mobile: évite que la colonne prix soit coupée */
-          .tbm-table { table-layout: auto; }
-          .tbm-table td:last-child,
-          .tbm-table th:last-child { white-space: normal; }
-          .price { white-space: normal; }
-          .price, .on-devis { overflow-wrap: anywhere; word-break: break-word; }
+          /* Mobile: tableau sur une ligne + scroll horizontal */
+          .tbm-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .tbm-table { min-width: 560px; table-layout: fixed; }
+          .tbm-table th, .tbm-table td { white-space: nowrap; }
+          .price { white-space: nowrap; }
         }
       </style>
 
