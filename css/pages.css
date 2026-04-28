@@ -16,6 +16,14 @@
   align-items: center;
 }
 
+/* ---- Texte pages (espacement paragraphes) ---- */
+.page-section-content .text-content p {
+  margin-bottom: 16px;
+}
+.page-section-content .text-content p:last-child {
+  margin-bottom: 0;
+}
+
 /* ---- Visual Placeholder (pages) ---- */
 .visual-placeholder {
   width: 100%;
