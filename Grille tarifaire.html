@@ -178,6 +178,15 @@
       padding: 20px 28px;
       margin-bottom: 28px;
     }
+    .tunnel-banner.tunnel-banner--sticky {
+      position: sticky;
+      top: calc(var(--header-height) + 10px);
+      z-index: 900;
+      background: rgba(238, 243, 255, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0, 24, 56, 0.14);
+    }
     .tunnel-banner__text p:first-child { font-size: 15px; font-weight: 600; color: var(--color-primary); margin-bottom: 4px; }
     .tunnel-banner__text p:last-child  { font-size: 13px; color: var(--color-gray-700); }
     .tunnel-banner__btn {
@@ -529,6 +538,16 @@
   <section class="section">
     <div class="container">
 
+      <div class="tunnel-banner tunnel-banner--sticky">
+        <div class="tunnel-banner__text">
+          <p>Besoin d’un devis rapide ?</p>
+          <p>Répondez à 3 questions et envoyez votre demande en 60 secondes.</p>
+        </div>
+        <button class="tunnel-banner__btn" onclick="openTunnel()">
+          Demander un devis <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
       <!-- Grille tarifaire -->
       <div class="tbm-wrap">
         <div class="tbm-header">
@@ -543,7 +562,7 @@
           <div class="tbm-section s2">
             <div class="tbm-section-title"><span class="dot d2"></span>1. Navettes programmées / régulières</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Prestation</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT <span style="font-weight:600;">par mois</span></th></tr></thead>
               <tbody>
                 <tr><td>Liaison quotidienne site ↔ site (1 rotation/jour)</td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>2 rotations / jour</td><td><span class="on-devis">Sur demande</span></td></tr>
@@ -556,7 +575,7 @@
           <div class="tbm-section s5">
             <div class="tbm-section-title"><span class="dot d5"></span>2. Longue distance / inter-sites / transferts régionaux</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Prestation</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
               <tbody>
                 <tr><td>Départ + prise en charge</td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>Kilométrage dédié &gt; 20 Km</td><td><span class="on-devis">Sur demande</span></td></tr>
@@ -568,7 +587,7 @@
           <div class="tbm-section s1">
             <div class="tbm-section-title"><span class="dot d1"></span>3. Courses urgentes immédiates (point à point)</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Prestation</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
               <tbody>
                 <tr><td>Course urgente intra-ville (0 – 10 Km)</td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>Course urgente 10 à 20 Km</td><td><span class="on-devis">Sur demande</span></td></tr>
@@ -582,7 +601,7 @@
           <div class="tbm-section s3">
             <div class="tbm-section-title"><span class="dot d3"></span>4. Nuit / week-end / jours fériés</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Période</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Période</th><th>Majoration</th></tr></thead>
               <tbody>
                 <tr><td>Nuit (20h – 6h)</td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>Samedi</td><td><span class="on-devis">Sur demande</span></td></tr>
@@ -594,7 +613,7 @@
           <div class="tbm-section s4">
             <div class="tbm-section-title"><span class="dot d4"></span>5. Astreinte dédiée établissement</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Prestation</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Prestation</th><th>Tarif HT</th></tr></thead>
               <tbody>
                 <tr><td>Astreinte soirée (18h – 00h) <span class="tbm-inline-note">— 3 transports inclus, au-delà, tarif de base majoré</span></td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>Astreinte nuit complète (20h – 06h) <span class="tbm-inline-note">— 5 transports inclus, au-delà, tarif de base majoré</span></td><td><span class="on-devis">Sur demande</span></td></tr>
@@ -607,7 +626,7 @@
           <div class="tbm-section s6">
             <div class="tbm-section-title"><span class="dot d6"></span>6. Options premium</div>
             <table class="tbm-table">
-              <thead><tr><th style="width:70%">Option</th><th>Sur demande</th></tr></thead>
+              <thead><tr><th style="width:70%">Option</th><th>Tarif HT</th></tr></thead>
               <tbody>
                 <tr><td>Double équipage — urgence absolue</td><td><span class="on-devis">Sur demande</span></td></tr>
                 <tr><td>Température dirigée contrôlée</td><td><span class="on-devis">Sur demande</span></td></tr>
